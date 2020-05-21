@@ -24,12 +24,12 @@ function setup() {
   createCanvas(900, 800);
 
   background(50);
-  me = new Avatar(width/2, 700, 6);
+  me = new Avatar(width/2, 700, 10);
   earth = ellipse(100,100)
 
-   let button = createButton("reset");
-
-   button.mousePressed(startAgain)
+   // let button = createButton("reset");
+   //
+   // button.mousePressed(startAgain)
 
 }
 
@@ -41,9 +41,15 @@ image(img, 10, 10, 900, 700);
   me.drawMe();
   me.moveMe();
 
+  if (frameCount < 150) {
+    fill("black");
+    textSize(20);
+    textFont('Verdana-Bold');
+    text('Use arrow keys to move the character, dont drop the books!', 140, 60);
+    }
 
-  if (frameCount % 35 == 0) {
-      let  b = new Ball(random(50,450), 50, random(3,6));
+  if (frameCount % 100 == 0) {
+      let  b = new Ball(random(50,700), 50, random(1,3));
       balls.push(b);
     }
 
@@ -58,9 +64,9 @@ image(img, 10, 10, 900, 700);
 }
 
 
-function startAgain(){ 
-location.reload(); 
-} 
+// function startAgain(){ 
+// location.reload(); 
+// } 
 
 
 class Avatar {
@@ -119,10 +125,8 @@ class Ball {
 	drawBall(){
 
     if (hit == false) {
-    	image(booki, this.x, this.y, 20, 20);
-
+    	image(booki, this.x, this.y, 50, 50);
     }
-
 	}
 
 
@@ -136,6 +140,7 @@ if (hit==false){
   	bounceBall(){
     		if (this.x >= me.x-25 && this.x <= me.x+25 && this.y > me.y-70 && this.y < me.y+70){
       			this.x=-10;
+            this.y=100;
             mySound.play();
 
 
@@ -146,17 +151,14 @@ if (hit==false){
       if(this.y>=height){
         hit = true;
         animation(librarian, 400, 420);
-        fill("orange");
+        fill("black");
         textSize(100);
         textFont('GillSans-Bold ');
         text('SHHHHHHH!!', 100, 100);
-        textSize(40);
+        fill("orange");
+        textSize(30);
         textFont('Verdana-Bold');
-        text('try again',620,770);
-        strokeWeight(6);
-        line(830,770,880,785);
-        line(875,775,880,785);
-        line(870,790,880,785);
+        text('refresh to try again',270,150);
       }
     }
 
