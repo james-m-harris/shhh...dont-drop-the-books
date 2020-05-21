@@ -7,11 +7,15 @@ let mySound;
 var librarian;
 var resetSketch;
 let hit = false;
+let img;
+let booki
 
 
 
 
 function preload() {
+  img = loadImage('bookshelves.png');
+booki = loadImage('book.png');
   soundFormats('mp3', 'ogg', 'wav');
   mySound = loadSound('levelup.wav');
   librarian = loadAnimation('sprites/librarian001.png', 'sprites/librarian033.png');
@@ -21,6 +25,7 @@ function setup() {
   createCanvas(900, 800);
 
   //make one avatar called me
+   background(50);
   me = new Avatar(width/2, 700, 6);
   earth = ellipse(100,100)
 
@@ -34,7 +39,7 @@ function setup() {
 function draw(){
 	background("white");
   //earth
-
+image(img, 10, 10, 900, 700);
   me.drawMe();
   me.moveMe();
 
@@ -65,6 +70,7 @@ class Avatar {
 		    this.x = x;
     		this.y = y;
         this.speed = speed;
+
 	}
 
 	drawMe(){  // draw the running person
@@ -108,15 +114,14 @@ class Ball {
     this.y = y;
     this.speed = speed;
 
+
 	}
 
 	// draw a ball on the screen at x,y
 	drawBall(){
 if (hit == false){
-    	stroke(0);
-      strokeWeight(3);
-    	fill("orange");
-		  ellipse(this.x,this.y,20,20);
+
+      image(booki, this.x, this.y, 20, 20);
     }
 
 	}
