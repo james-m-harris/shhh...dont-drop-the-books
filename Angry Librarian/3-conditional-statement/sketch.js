@@ -3,45 +3,32 @@ let balls = [];
 
 //create a variable to hold your avatar
 let me;
-let mySound;
-var librarian;
-var resetSketch;
-let hit = false;
-
-
-
+let mySound
 
 function preload() {
   soundFormats('mp3', 'ogg', 'wav');
-  mySound = loadSound('levelup.wav');
-  librarian = loadAnimation('sprites/librarian001.png', 'sprites/librarian033.png');
+  mySound = loadSound('levelup.wav')
 }
 
 function setup() {
-  createCanvas(900, 800);
+  createCanvas(500, 400);
 
   //make one avatar called me
-  me = new Avatar(width/2, 700, 6);
+  me = new Avatar(width/2, 300, 6);
   earth = ellipse(100,100)
-
-   let button = createButton("reset");
-
-   button.mousePressed(startAgain)
-
-
 }
 
 function draw(){
-	background("white");
+	background(0,0,0);
   //earth
 
   me.drawMe();
   me.moveMe();
 
-
   if (frameCount % 35 == 0) {
-      let  b = new Ball(random(50,450), 50, random(3,6));
+      let  b = new Ball(random(50,450), 50, -3);
       balls.push(b);
+      console.log(balls); //print the balls array to the console
     }
 
 //	draw all the balls in that array
@@ -49,13 +36,8 @@ function draw(){
 	 	      balls[i].drawBall();
        	  balls[i].moveBall();
         	balls[i].bounceBall();
-          balls[i].dropBook();
 	  }
 
-}
-
-function startAgain(){
-  location.reload();
 }
 
 //avatar class
@@ -68,7 +50,6 @@ class Avatar {
 	}
 
 	drawMe(){  // draw the running person
-if (hit == false){
     		stroke("gold");
         strokeWeight(1);
     		fill("red");
@@ -79,16 +60,20 @@ if (hit == false){
         line(this.x+10, this.y+50, this.x+5, this.y+60);
         line(this.x, this.y+15, this.x-10, this.y+25);
         line(this.x-10, this.y+25, this.x+10, this.y+35);
-      }
-
-}
+	}
 
 	moveMe(){
+  //  if (keyIsDown(UP_ARROW)) { //if you hold the up arrow, move up by speed
+       this.y -= this.speed;
+  //  }
 
+  //  if (keyIsDown(DOWN_ARROW)) { // if you hold the down arrow, move down by speed
+        this.y += this.speed;
+//    }
     if (keyIsDown(RIGHT_ARROW)) {
       this.x += this.speed;
     }
-    if (keyIsDown(LEFT_ARROW )) {
+    if (keyIsDown(LEFT_ARROW)) {
       this.x -= this.speed;
 }
 }
@@ -107,28 +92,21 @@ class Ball {
 		this.x = x;
     this.y = y;
     this.speed = speed;
-
 	}
 
 	// draw a ball on the screen at x,y
 	drawBall(){
-if (hit == false){
     	stroke(0);
       strokeWeight(3);
     	fill("orange");
 		  ellipse(this.x,this.y,20,20);
-    }
-
 	}
 
 	//update the location of the ball, so it moves across the screen
 	moveBall(){
-if (hit==false){
-		this.y = this.y+this.speed;
-
+		//this.x = this.x+ this.speed;
+		this.y = this.y+.250;
 	}
-
-}
 
 	//if the ball hits the person, change the speed value to negative (send it in the opposite direction)
   	bounceBall(){
@@ -136,27 +114,8 @@ if (hit==false){
       			this.x=-10;
             mySound.play();
 
-
+        
     		}
   	}
-
-    dropBook(){
-      if(this.y>=height){
-        hit = true;
-        animation(librarian, 400, 420);
-        fill("orange");
-        textSize(100);
-        textFont('GillSans-Bold ');
-        text('SHHHHHHH!!', 100, 100);
-        textSize(40);
-        textFont('Verdana-Bold');
-        text('try again',620,770);
-        strokeWeight(6);
-        line(830,770,880,785);
-        line(875,775,880,785);
-        line(870,790,880,785);
-      }
-    }
-
 
 }
