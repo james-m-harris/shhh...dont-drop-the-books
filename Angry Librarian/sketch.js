@@ -8,14 +8,13 @@ var librarian;
 var resetSketch;
 let hit = false;
 let img;
-let booki
-
-
+let booki;
 
 
 function preload() {
   img = loadImage('bookshelves.png');
 booki = loadImage('book.png');
+
   soundFormats('mp3', 'ogg', 'wav');
   mySound = loadSound('levelup.wav');
   librarian = loadAnimation('sprites/librarian001.png', 'sprites/librarian033.png');
@@ -24,8 +23,7 @@ booki = loadImage('book.png');
 function setup() {
   createCanvas(900, 800);
 
-  //make one avatar called me
-   background(50);
+  background(50);
   me = new Avatar(width/2, 700, 6);
   earth = ellipse(100,100)
 
@@ -33,8 +31,8 @@ function setup() {
 
    button.mousePressed(startAgain)
 
-
 }
+
 
 function draw(){
 	background("white");
@@ -59,11 +57,12 @@ image(img, 10, 10, 900, 700);
 
 }
 
-function startAgain(){
-  location.reload();
-}
 
-//avatar class
+function startAgain(){ 
+location.reload(); 
+} 
+
+
 class Avatar {
 
 	constructor(x,y, speed){ //every avatar needs an x value, a y value, and a speed
@@ -117,16 +116,16 @@ class Ball {
 
 	}
 
-	// draw a ball on the screen at x,y
 	drawBall(){
-if (hit == false){
 
-      image(booki, this.x, this.y, 20, 20);
+    if (hit == false) {
+    	image(booki, this.x, this.y, 20, 20);
+
     }
 
 	}
 
-	//update the location of the ball, so it moves across the screen
+
 	moveBall(){
 if (hit==false){
 		this.y = this.y+this.speed;
@@ -134,8 +133,6 @@ if (hit==false){
 	}
 
 }
-
-	//if the ball hits the person, change the speed value to negative (send it in the opposite direction)
   	bounceBall(){
     		if (this.x >= me.x-25 && this.x <= me.x+25 && this.y > me.y-70 && this.y < me.y+70){
       			this.x=-10;
